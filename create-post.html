@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Post</title>
+    <link rel="stylesheet" href="style.css"> <!-- Optional, for styling -->
+</head>
+<body>
+    <div class="container">
+        <h2>Create a Post</h2>
+        <form id="create-post-form">
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" required>
+
+            <label for="content">Content:</label>
+            <textarea id="content" name="content" required></textarea>
+
+            <button type="submit">Publish</button>
+        </form>
+
+        <h3>Published Posts:</h3>
+        <div id="posts-list"></div>
+    </div>
+
+    <script>
+        // Handle the form submission
+        document.getElementById("create-post-form").addEventListener("submit", function(event) {
+            event.preventDefault();
+            
+            // Get the title and content values
+            const title = document.getElementById("title").value;
+            const content = document.getElementById("content").value;
+
+            // Send a POST request to the backend to create the post
+            fetch("http://localhost:5000/create-post", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ title, content })
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);  // Alert the user about the post status
+                loadPosts();  // Reload the posts after submitting
+            })
+            .catch(error => console.error("Error:", error));
+        });
+
+        // Fetch and display posts on page load
+        function loadPosts() {
+            fetch("http://localhost:5000/posts")
+                .then(response => response.json())
+                .then(posts => {
+                    const postsList = document.getElementById("posts-list");
+                    postsList.innerHTML = ""; // Clear existing posts
+                    posts.forEach(post => {
+                        const postElement = document.createElement("div");
+                        postElement.innerHTML = `
+                            <h4>${post.title}</h4>
+                            <p>${post.content}</p>
+                            <hr>
+                        `;
+                        postsList.appendChild(postElement);
+                    });
+                })
+                .catch(error => console.error("Error fetching posts:", error));
+        }
+
+        // Load posts when the page loads
+        loadPosts();
+    </script>
+</body>
+</html>

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduVerseHub - Academic Resources & Research</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Header & Navigation -->
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>EduVerseHub</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#order">Order Paper</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section with Background Video -->
+    <section id="home" class="hero">
+        <video autoplay muted loop id="hero-video">
+            <source src="Video/PSU-4-06-02-2025.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="hero-content">
+            <h2>Welcome to EduVerseHub</h2>
+            <p>Your ultimate resource hub for academic success! Explore, learn, and create without limits.</p>
+            <a href="#join" class="cta-button">Join Us Today</a>
+        </div>
+    </section>
+
+    <!-- Small Videos Section -->
+    <section id="videos">
+        <h2>Campus Life & Student Experience</h2>
+        <div class="video-container">
+            <video autoplay muted loop class="small-video">
+                <source src="Video/large.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+
+            <video autoplay muted loop class="small-video">
+                <source src="Video/35453-407130965_small.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+
+            <video autoplay muted loop class="small-video">
+                <source src="Video/mixkit-students-walking-in-a-university-4519-hd-ready (video-converter.com) (1).mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        <a href="create-post.html" style="font-weight: bold; color: #007BFF; text-decoration: none; font-size: 18px; transition: color 0.3s ease;">Create a New Post</a>
+
+
+    </section> 
+
+
+    <!-- About Us Section with Image -->
+    <section id="about">
+        <div class="section-content">
+            <h2>About Us</h2>
+            <img src="Image/images.png" alt="About EduVerseHub" class="section-image">
+            <p>We’re a collaborative platform committed to empowering students, researchers, and educators with the tools and resources they need to succeed.</p>
+        </div>
+    </section>
+    
+
+    <!-- Services Section -->
+    <section id="services">
+        <div class="section-content">
+            <h2>Our Services</h2>
+            <ul>
+                <li>Research Papers & Assignments</li>
+                <li>Study Materials & Syllabus PDFs</li>
+                <li>Experiment Codes</li>
+                <li>Conference Links & Updates</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Research Paper Order Section -->
+    <section id="order">
+        <div class="section-content">
+            <h2>Order a Research Paper under RS 1000 only</h2>
+            <p>Need a research paper? Submit your request through our Google Form.</p>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLScNztvNKwjWyHg73SBodtHqDlRhRq0KpGvaqEch4sBk0JvDyQ/viewform?usp=header" target="_blank" class="cta-button">Order Now</a>
+        </div>
+    </section>
+
+    <!-- Registration Section -->
+    <section id="join">
+        <div class="section-content">
+            <h2>Join Us</h2>
+            <p>Be a part of a community that’s passionate about learning, innovation, and academic excellence. Start your journey today!</p>
+
+            <!-- Registration Form -->
+            <form id="registration-form">
+                <label for="name">Full Name:</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="email">Email Address:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+
+                <button type="submit" class="cta-button">Register</button>
+            </form>
+
+            <p>Already have an account? <a href="login.html">Login here</a></p>
+        </div>
+        
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="section-content">
+            <h2>Contact Us</h2>
+            <p>If you have any questions or need assistance, feel free to reach out to us at:</p>
+            <p>Email: <a href="mailto:researchteamcu@gmail.com">researchteamcu@gmail.com</a></p>
+
+            <!-- Contact Form -->
+            <form id="contactForm">
+                <label for="name">Name:</label>
+                <input type="text" id="name" required />
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" required />
+
+                <label for="message">Message:</label>
+                <textarea id="message" required></textarea>
+
+                <button type="submit">Submit</button>
+            </form>
+
+            <script>
+                document.getElementById("contactForm").addEventListener("submit", async function (event) {
+                    event.preventDefault();
+
+                    const name = document.getElementById("name").value;
+                    const email = document.getElementById("email").value;
+                    const message = document.getElementById("message").value;
+
+                    const response = await fetch("http://localhost:5000/submit", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ name, email, message }),
+                    });
+
+                    const result = await response.json();
+                    alert(result.message);
+                });
+            </script>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 EduVerseHub | All Rights Reserved</p>
+    </footer>
+
+    <script src="register.js"></script>
+</body>
+</html>
